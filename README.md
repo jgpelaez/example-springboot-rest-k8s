@@ -45,11 +45,33 @@ https://hub.docker.com/repository/docker/jgpelaez/example-springboot-rest-k8s
 
 ## Application execution
 
-Local Maven run:
+### Local Maven run:
 
 ```
 mvn spring-boot:run
 ```
+
+
+### Kubernetes:
+
+Run:
+
+```
+kubectl create ns products-example
+helm3 upgrade --install products-example ./charts/springboot --namespace products-example -f chart-values.yaml
+```
+
+Access to the application
+
+```
+kubectl port-forward svc/products-example-back 11811
+```
+
+In the browser:
+
+http://localhost:11811/swagger-ui.html
+
+http://localhost:11811/product
 
 ### Application api
 
@@ -60,8 +82,9 @@ http://localhost:8080/swagger-ui.html
 
 ![swagger](https://raw.githubusercontent.com/jgpelaez/example-springboot-rest-k8s/master/doc/2020-03-23%2015_58_29-Swagger%20UI.png)
 
-#### Get list of products
-http://localhost:8080/product
+### Application security
+
+The helm chart includes a security layer with an authentication proxy, all requests will pass through this proxy with basic http authentication.
 
 ## Application Description
 
@@ -84,3 +107,9 @@ The database creation and upgrades is done using liquibase, every update will co
 
 The database creation is handled by the yaml and sql files in the src/main/resources/db folder
 
+# TO IMPROVE
+
+- Parametrize usage of the proxy sidecar
+- Parametrize with helm values the secret of the proxy sidecar
+- Create a CI/CD build pipeline
+- Set flags for Java for correcto usage of memory with containers

@@ -7,3 +7,4 @@ resources:
     memory: 128Mi
 image:
    repository: jgpelaez/example-springboot-rest-k8s
+replicaCount: 2
