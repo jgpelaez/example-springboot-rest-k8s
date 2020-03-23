@@ -66,15 +66,34 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: EXTRA_JAVA_OPTIONS
-              value: "-Dingenpub.config.location=/appconfiguration/ingenpub.properties"                  
+              value: ""
+            - name: JDBC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                   name: db-postgresql
+                   key: postgresql-password                  
           resources:
 {{ toYaml .Values.resources | indent 12 }}
-            
+        - name: "{{ template "back.fullname" . }}-proxy"
+          image: angelbarrera92/basic-auth-reverse-proxy:v0.1.5
+          ports:
+            - name: httpproxy
+              containerPort: {{ .Values.service.proxyPort }}
+          args:
+          - "serve"
+          - "--port={{ .Values.service.proxyPort }}"
+          - "--upstream=http://localhost:{{ .Values.service.internalPort }}"
+          - "--auth-config=/etc/reverse-proxy-conf/authn.yaml"
+          volumeMounts:
+          - name: reverse-proxy-auth-config
+            mountPath: /etc/reverse-proxy-conf
     {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
     {{- end }}
       securityContext:
         runAsUser: 1000
-
-              
+      volumes:
+      - name: reverse-proxy-auth-config
+        secret:
+          secretName: reverse-proxy-auth-config

@@ -14,6 +14,11 @@ spec:
       targetPort: {{ .Values.service.internalPort }}
       protocol: TCP
       name: {{ .Values.service.name }}
+    - port: {{ .Values.service.externalProxyPort }}
+      targetPort: {{ .Values.service.proxyPort }}
+      protocol: TCP
+      name: {{ .Values.service.name }}-external      
+      
   selector:
     app: {{ template "back.name" . }}
     release: {{ .Release.Name }}
