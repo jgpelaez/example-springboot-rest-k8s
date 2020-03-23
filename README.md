@@ -47,7 +47,7 @@ Application api can be found with swagger in the url:
 
 http://localhost:8080/swagger-ui.html
 
-![swagger](doc/2020-03-23 15_58_29-Swagger UI.png)
+![swagger](https://raw.githubusercontent.com/jgpelaez/example-springboot-rest-k8s/master/doc/2020-03-23%2015_58_29-Swagger%20UI.png)
 
 #### Get list of products
 http://localhost:8080/product
