@@ -14,3 +14,22 @@ Api support:
 ● Update a product (Optional)
 ● Delete a product (soft deletion) (Optional)
 
+## Run the application
+
+Local Maven run:
+
+```
+mvn spring-boot:run
+```
+
+### Application api
+
+Application api can be found with swagger in the url:
+
+
+http://localhost:8080/swagger-ui.html
+
+![swagger](2020-03-23 15_58_29-Swagger UI.png)
+
+#### Get list of products
+http://localhost:8080/product
