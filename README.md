@@ -32,6 +32,17 @@ Docker build contains all for building the jar and store it in a Docker image
 docker build . -t products-example
 ```
 
+### Build in Docker HUB
+
+The repository can be automatically build by dockerhub in order to obtain a docker image in the DockerHub registry.
+This application has been built in the repository:
+
+https://hub.docker.com/repository/docker/jgpelaez/example-springboot-rest-k8s
+
+
+
+
+
 ## Application execution
 
 Local Maven run:
