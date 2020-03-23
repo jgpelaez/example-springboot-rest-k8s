@@ -65,8 +65,22 @@ http://localhost:8080/product
 
 ## Application Description
 
-### Database creation
+### Database
+
+The persistence in the aplication is done with an SQL database. It's configurable to use H2 for testing purposes and postgresql for production
+
+
+#### Database deployment in Kubernetes
+
+The database deployment is based on the postgresql helm chart, and deployed with the command:
+
+```
+helm3 upgrade --install  db stable/postgresql 
+```
+
+#### Database creation
 
 The database creation and upgrades is done using liquibase, every update will contain the scripts for database update.
 
 The database creation is handled by the yaml and sql files in the src/main/resources/db folder
+

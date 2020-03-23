@@ -5,7 +5,7 @@ docker-build: ## preconfigure
 	docker build . -t products-example
 
 installdb: ## installdb
-	helm3 upgrade --install  db stable/postgresql --set postgresqlPassword=nonuseinproduction
+	helm3 upgrade --install  db stable/postgresql 
 deploy-app-kube:: ## preconfigure
 	-kubectl create ns products-example
 	helm3 upgrade --install products-example ./charts/springboot --namespace products-example -f chart-values.yaml
